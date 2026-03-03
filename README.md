@@ -168,7 +168,7 @@ python -m parcoursup.cli -i fr-esr-parcoursup.json
 
 Convert specified input file using defaults for output, database, and table. Rename keys and define primary keys.
 ```bash
-python -m parcoursup.cli -i fr-esr-parcoursup.json -r acad_mies:academies g_olocalisation_des_formations_lon:geolocalisation_des_formations_lon g_olocalisation_des_formations_lat:geolocalisation_des_formations_lat -p cod_uai cod_aff_form
+python -m parcoursup.cli -i fr-esr-parcoursup.json -r acad_mies:academies g_olocalisation_des_formations:geolocalisation_des_formations -p cod_uai cod_aff_form
 ```
 
 ## 🎨 Command-Line Arguments
@@ -184,8 +184,7 @@ python -m parcoursup.cli -i fr-esr-parcoursup.json -r acad_mies:academies g_oloc
 
 ## 🐛 Bugs
 
-- `acad_mies` instead of `academies`.
-- `g_olocalisation_des_formations` instead of `geolocalisation_des_formations`.
+Not yet found.
 
 ## ⛔ Known Limitations
 

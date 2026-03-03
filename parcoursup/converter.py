@@ -2,6 +2,17 @@ from __future__ import annotations
 import json
 
 
+def rename_keys(obj, renames: dict[str, str]):
+	if isinstance(obj, dict):
+		return {
+			renames.get(key, key): rename_keys(value, renames)
+			for key, value in obj.items()
+		}
+	if isinstance(obj, list):
+		return [rename_keys(value, renames) for value in obj]
+	return obj
+
+
 def flatten_dictionary(dictionary: dict, key_prefix: str = "") -> dict:
 	flattened_dictionary = {}
 	for key, value in dictionary.items():
@@ -79,22 +90,19 @@ def convert_json_to_mysql(
 	primary_keys: list[str],
 ):
 	with open(json_file_path, "r", encoding="utf-8") as file:
-		data = json.load(file)
-	flattened_data = [flatten_dictionary(row) for row in data]
+		obj = json.load(file)
 	if renames:
-		for row in flattened_data:
-			for key, new_key in renames.items():
-				if key in row:
-					row[new_key] = row.pop(key)
+		obj = rename_keys(obj, renames)
+	flattened_obj = [flatten_dictionary(row) for row in obj]
 	keys = []
-	for row in flattened_data:
+	for row in flattened_obj:
 		for key in row.keys():
 			if key not in keys:
 				keys.append(key)
 	valid_keys = []
 	column_definitions = []
 	for key in keys:
-		column_values = [row.get(key) for row in flattened_data]
+		column_values = [row.get(key) for row in flattened_obj]
 		mysql_type = determine_mysql_type(column_values)
 		if mysql_type == "ERROR":
 			raise ValueError(f"Error determining MySQL type for column '{key}'")
@@ -110,7 +118,7 @@ def convert_json_to_mysql(
 		if primary_keys:
 			file.write(f",\n\tPRIMARY KEY ({", ".join(primary_keys)})")
 		file.write("\n);\n")
-		for row in flattened_data:
+		for row in flattened_obj:
 			insert_statement = create_insert_statement(table_name, valid_keys, row)
 			file.write(insert_statement)
 		file.write("COMMIT;")
