@@ -11,6 +11,10 @@
 [![Release](https://img.shields.io/github/release/Inc44/Parcoursup.svg)](https://github.com/Inc44/Parcoursup/releases)
 [![Sponsor](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/Inc44)
 
+## 🎯 Objectif de la base de donnée 
+
+L'objectif principal de cette base de données est de récupérer et d'analyser toutes les informations liées à l'orientation et aux admissions des élèves dans l'enseignement supérieur via la plateforme Parcoursup. Elle nous permet de suivre de bout en bout le processus d'affectation, depuis le moment où les candidats formulent leurs vœux jusqu'à leur acceptation finale dans les différentes formations. On y retrouve tous les détails sur les établissements, leurs capacités d'accueil, et surtout le profil précis des postulants, par exemple s'ils sont boursiers, leur type de baccalauréat ou encore les mentions qu'ils ont obtenues. Grâce à toutes ces informations, le but est de pouvoir observer la sélectivité de chaque filière, d'étudier les taux d'accès selon les différentes phases d'admission principale ou complémentaire, et de comprendre comment se répartissent les futurs étudiants selon leur origine académique et géographique. Cela nous donne donc une vision globale pour analyser efficacement les critères d'intégration post-bac sans perdre la trace des spécificités de chaque candidature.
+
 ## ⚙️ Features
 
 | Key                              | Description                                                                                                                                      |
