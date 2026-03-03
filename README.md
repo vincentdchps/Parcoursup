@@ -166,6 +166,11 @@ Convert specified input file using defaults for output, database, and table.
 python -m parcoursup.cli -i fr-esr-parcoursup.json
 ```
 
+Convert specified input file using defaults for output, database, and table. Rename keys and define primary keys.
+```bash
+python -m parcoursup.cli -i fr-esr-parcoursup.json -r acad_mies:academies g_olocalisation_des_formations_lon:geolocalisation_des_formations_lon g_olocalisation_des_formations_lat:geolocalisation_des_formations_lat -p cod_uai cod_aff_form
+```
+
 ## 🎨 Command-Line Arguments
 
 | Argument                      | Description                     |
@@ -174,6 +179,8 @@ python -m parcoursup.cli -i fr-esr-parcoursup.json
 | `-o, --output <path>`         | Path to the output `.sql` file. |
 | `-d, --database`              | Name of the MySQL database.     |
 | `-t, --table`                 | Name of the MySQL table.        |
+| `-r, --rename`                | Rename keys. Use key:new_key.   |
+| `-p, --primary`               | Primary keys.                   |
 
 ## 🐛 Bugs
 

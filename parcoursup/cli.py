@@ -11,6 +11,8 @@ def run(config: Config) -> None:
 		config.mysql_file_path,
 		config.database_name,
 		config.table_name,
+		config.renames,
+		config.primary_keys,
 	)
 
 
@@ -39,6 +41,18 @@ def main() -> None:
 		"--table",
 		default="parcoursup",
 		help="Name of the MySQL table. Default: `parcoursup`.",
+	)
+	arg_parser.add_argument(
+		"-r",
+		"--rename",
+		nargs="+",
+		help="Rename keys. Use key:new_key.",
+	)
+	arg_parser.add_argument(
+		"-p",
+		"--primary",
+		nargs="+",
+		help="Primary keys.",
 	)
 	args = arg_parser.parse_args()
 	config = Config(args)

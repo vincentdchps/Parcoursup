@@ -71,11 +71,21 @@ def create_insert_statement(table_name: str, keys: list, row: dict) -> str:
 
 
 def convert_json_to_mysql(
-	json_file_path: str, mysql_file_path: str, database_name: str, table_name: str
+	json_file_path: str,
+	mysql_file_path: str,
+	database_name: str,
+	table_name: str,
+	renames: dict[str, str],
+	primary_keys: list[str],
 ):
 	with open(json_file_path, "r", encoding="utf-8") as file:
 		data = json.load(file)
 	flattened_data = [flatten_dictionary(row) for row in data]
+	if renames:
+		for row in flattened_data:
+			for key, new_key in renames.items():
+				if key in row:
+					row[new_key] = row.pop(key)
 	keys = []
 	for row in flattened_data:
 		for key in row.keys():
@@ -97,6 +107,8 @@ def convert_json_to_mysql(
 		file.write(f"DROP TABLE IF EXISTS {table_name};\n")
 		file.write(f"CREATE TABLE IF NOT EXISTS {table_name} (\n")
 		file.write(",\n".join(column_definitions))
+		if primary_keys:
+			file.write(f",\n\tPRIMARY KEY ({", ".join(primary_keys)})")
 		file.write("\n);\n")
 		for row in flattened_data:
 			insert_statement = create_insert_statement(table_name, valid_keys, row)
