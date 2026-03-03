@@ -19,6 +19,17 @@ L'objectif principal de cette base de données est de récupérer et d'analyser 
 
 Pour la partie sur les contraintes d'intégrité, on a d'abord les contraintes statiques qui s'appliquent en permanence à notre base. Par exemple, il est impératif que le code UAI de l'établissement et le code d'affectation de la formation soient toujours renseignés pour identifier chaque ligne de manière unique. On doit aussi vérifier la cohérence des effectifs : le nombre de candidates ou de boursiers ne peut absolument pas dépasser le nombre total de vœux ou d'admis. De la même manière, les champs de pourcentages doivent obligatoirement être compris entre 0 et 100, et le total des admis ne peut pas dépasser la capacité finale de l'établissement. Ensuite, concernant les contraintes dynamiques qui s'activent lors d'un changement d'état, on retrouve la règle de non-régression des admissions. Lors d'une mise à jour des données, le nombre total de candidats ayant définitivement accepté une proposition ne peut qu'augmenter ou stagner, car on ne supprime pas une acceptation dans ce processus. Enfin, l'ajout de candidatures en phase complémentaire ne peut se déclencher que si le nombre d'admis en phase principale est resté strictement inférieur à la capacité finale d'accueil de la formation.
 
+## 🤔 Exemples de redondances et d'anomalies existantes dans le schéma
+
+- **Redondances :**
+	Le *Lycée Saint Exupéry* (UAI `0782539L`) propose deux formations (CPGE et BTS). L'intégralité de ses métadonnées (statut "Public", département "Yvelines", région "Ile-de-France", académie "Versailles", commune "Mantes-la-Jolie", coordonnées GPS "48.9974, 1.69372") est dupliquée à l'identique sur les deux lignes.
+- **Anomalie d'insertion :**
+	Il est impossible d'ajouter un nouvel établissement (ex : une université venant d'être construite) dans la base de données tant que cet établissement ne propose pas au moins une formation, car la clé primaire requiert un code de formation (`cod_aff_form`).
+- **Anomalie de mise à jour :**
+	Si la commune ou les coordonnées GPS de l'établissement *Lycée Saint Exupéry* (UAI `0782539L`) changent, il faut modifier cette information sur plusieurs lignes simultanément (CPGE et BTS). Une modification partielle entraînera une incohérence de la base.
+- **Anomalie de suppression :**
+	Si l'on supprime les formations "CPGE - Lettres" et "BTS - Services - Support à l'action managériale" du *Lycée Saint Exupéry* (UAI `0782539L`), l'existence même de ce lycée, ainsi que sa localisation et son code UAI, sont définitivement effacés de la base de données.
+
 ## ⚙️ Features
 
 | Key                              | Description                                                                                                                                      |
