@@ -153,11 +153,14 @@ def convert_json_to_mysql(
 	file.write("\n);\n")
 	for row in flattened_obj:
 		if split > 0 and insert_count >= split:
+			file.write(f"OPTIMIZE TABLE {table_name};\n")
 			file.write("COMMIT;\n")
 			file.close()
+			root, ext = os.path.splitext(mysql_file_path)
+			if file_index == 1:
+				os.replace(mysql_file_path, f"{root}_{file_index:03d}{ext}")
 			file_index += 1
 			insert_count = 0
-			root, ext = os.path.splitext(mysql_file_path)
 			next_mysql_file_path = f"{root}_{file_index:03d}{ext}"
 			file = open(next_mysql_file_path, "w", encoding="utf-8")
 			file.write(f"USE {database_name};\n")
