@@ -7,7 +7,7 @@ from .converter import convert_json_to_mysql
 
 def run(config: Config) -> None:
 	convert_json_to_mysql(
-		config.json_file_path,
+		config.json_file_paths,
 		config.mysql_file_path,
 		config.database_name,
 		config.table_name,
@@ -24,8 +24,9 @@ def main() -> None:
 	arg_parser.add_argument(
 		"-i",
 		"--input",
-		default="parcoursup.json",
-		help="Path to the input `.json` file. Default: `parcoursup.json`.",
+		nargs="+",
+		default=["parcoursup.json"],
+		help="Path(s) to the input `.json` file(s). Default: `parcoursup.json`.",
 	)
 	arg_parser.add_argument(
 		"-o",

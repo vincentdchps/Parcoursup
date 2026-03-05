@@ -179,12 +179,12 @@ python -m parcoursup.cli -i fr-esr-parcoursup.json -r acad_mies:academies g_oloc
 
 | Argument                      | Description                                |
 |-------------------------------|--------------------------------------------|
-| `-i, --input <path>`          | Path to the input `.json` file.            |
+| `-i, --input <path>`          | Path(s) to the input `.json` file(s).      |
 | `-o, --output <path>`         | Path to the output `.sql` file.            |
-| `-d, --database`              | Name of the MySQL database.                |
-| `-t, --table`                 | Name of the MySQL table.                   |
-| `-r, --rename`                | Rename keys. Use key:new_key.              |
-| `-p, --primary`               | Primary keys.                              |
+| `-d, --database <name>`       | Name of the MySQL database.                |
+| `-t, --table <name>`          | Name of the MySQL table.                   |
+| `-r, --rename <key:new_key>`  | Rename keys. Use key:new_key.              |
+| `-p, --primary <key>`         | Primary keys.                              |
 | `-n, --not-null`              | Set keys with non-null values as NOT NULL. |
 | `-P, --percentages`           | Checks for percentages (0 to 100).         |
 | `-C, --counts`                | Checks for counts (>= 0).                  |

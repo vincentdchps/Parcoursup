@@ -82,7 +82,7 @@ def create_insert_statement(table_name: str, keys: list, row: dict) -> str:
 
 
 def convert_json_to_mysql(
-	json_file_path: str,
+	json_file_paths: list[str],
 	mysql_file_path: str,
 	database_name: str,
 	table_name: str,
@@ -92,8 +92,14 @@ def convert_json_to_mysql(
 	percentages: bool,
 	counts: bool,
 ):
-	with open(json_file_path, "r", encoding="utf-8") as file:
-		obj = json.load(file)
+	obj = []
+	for json_file_path in json_file_paths:
+		with open(json_file_path, "r", encoding="utf-8") as file:
+			data = json.load(file)
+			if isinstance(data, list):
+				obj.extend(data)
+			else:
+				obj.append(data)
 	if renames:
 		obj = rename_keys(obj, renames)
 	flattened_obj = [flatten_dictionary(row) for row in obj]
