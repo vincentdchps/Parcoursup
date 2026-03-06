@@ -209,6 +209,15 @@ Not yet found.
 
 Not yet known.
 
+## 🙏 Thanks
+
+Creators of:
+
+- [Parcoursup 2025](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-parcoursup/table/?sort=tri)
+- [Parcoursup 2024](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-parcoursup_2024/table/?sort=tri)
+- [Parcoursup 2023](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-parcoursup_2023/table/?sort=tri)
+- [Parcoursup 2022](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-parcoursup_2022/table/?sort=tri)
+
 ## 🤝 Contribution
 
 Contributions, suggestions, and new ideas are heartily welcomed. If you're considering significant modifications, please initiate an issue for discussion before submitting a pull request.
