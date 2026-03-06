@@ -14,6 +14,22 @@ def rename_keys(obj, renames: dict[str, str]):
 	return obj
 
 
+def cast(value):
+	if isinstance(value, str):
+		if len(value) > 1 and value.startswith("0") and not value.startswith("0."):
+			return value
+		if len(value) > 2 and value.startswith("-0") and not value.startswith("-0."):
+			return value
+		try:
+			return int(value)
+		except ValueError:
+			try:
+				return float(value)
+			except ValueError:
+				pass
+	return value
+
+
 def flatten_dictionary(dictionary: dict, key_prefix: str = "") -> dict:
 	flattened_dictionary = {}
 	for key, value in dictionary.items():
@@ -21,7 +37,7 @@ def flatten_dictionary(dictionary: dict, key_prefix: str = "") -> dict:
 		if isinstance(value, dict):
 			flattened_dictionary.update(flatten_dictionary(value, f"{new_key}_"))
 		else:
-			flattened_dictionary[new_key] = value
+			flattened_dictionary[new_key] = cast(value)
 	return flattened_dictionary
 
 
