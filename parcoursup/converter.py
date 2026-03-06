@@ -15,6 +15,8 @@ def rename_keys(obj, renames: dict[str, str]):
 
 
 def cast(value):
+	if isinstance(value, float) and value.is_integer():
+		return int(value)
 	if isinstance(value, str):
 		if len(value) > 1 and value.startswith("0") and not value.startswith("0."):
 			return value
@@ -26,7 +28,10 @@ def cast(value):
 			if not set(value).issubset(set("-+.0123456789")):
 				return value
 			try:
-				return float(value)
+				float_value = float(value)
+				if float_value.is_integer():
+					return int(float_value)
+				return float_value
 			except ValueError:
 				pass
 	return value
