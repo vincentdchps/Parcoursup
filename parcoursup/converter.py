@@ -23,6 +23,8 @@ def cast(value):
 		try:
 			return int(value)
 		except ValueError:
+			if not set(value).issubset(set("-+.0123456789")):
+				return value
 			try:
 				return float(value)
 			except ValueError:
