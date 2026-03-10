@@ -19,3 +19,11 @@ class Config:
 		self.counts: bool = args.counts
 		self.split: int = args.split
 		self.print_mode: bool = args.print
+		self.range_start: int | None = args.range_start
+		self.range_end: int | None = args.range_end
+		if args.range:
+			start, end = args.range.split(",", 1)
+			self.range_start = int(start)
+			self.range_end = int(end)
+		self.first: int | None = args.first
+		self.last: int | None = args.last

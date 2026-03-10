@@ -72,7 +72,7 @@ _Note : Comme les bases de données de [data.gouv.fr](https://www.data.gouv.fr) 
 | `dep`                            | Code départemental de l'établissement                                                                                                            |
 | `dep_lib`                        | Département de l'établissement                                                                                                                   |
 | `region_etab_aff`                | Région de l'établissement                                                                                                                        |
-| `acad_mies`                      | Académie de l'établissement                                                                                                                      |
+| `academies`                      | Académie de l'établissement                                                                                                                      |
 | `ville_etab`                     | Commune de l'établissement                                                                                                                       |
 | `lib_for_voe_ins`                | Filière de formation                                                                                                                             |
 | `select_form`                    | Sélectivité                                                                                                                                      |
@@ -81,7 +81,7 @@ _Note : Comme les bases de données de [data.gouv.fr](https://www.data.gouv.fr) 
 | `form_lib_voe_acc`               | Filière de formation                                                                                                                             |
 | `fil_lib_voe_acc`                | Filière de formation détaillée bis                                                                                                               |
 | `detail_forma`                   | Filière de formation très détaillée                                                                                                              |
-| `g_olocalisation_des_formations` | Coordonnées GPS de la formation                                                                                                                  |
+| `geolocalisation_des_formations` | Coordonnées GPS de la formation                                                                                                                  |
 | `capa_fin`                       | Capacité de l'établissement par formation                                                                                                        |
 | `voe_tot`                        | Effectif total des candidats pour une formation                                                                                                  |
 | `voe_tot_f`                      | Dont effectif des candidates pour une formation                                                                                                  |
@@ -217,6 +217,11 @@ python -m parcoursup.cli -i fr-esr-parcoursup.json fr-esr-parcoursup_2024.json f
 | `-C, --counts`                | Checks for counts (>= 0).                                                |
 | `-s, --split`                 | Split insert requests into multiple `.sql` files.                        |
 | `--print`                     | Print non-null percentages or counts instead of producing a `.sql` file. |
+| `--range <start,end>`         | Process entries within specified range (zero-indexed)                    |
+| `--range-start <n>`           | Set starting entry index for processing range                            |
+| `--range-end <n>`             | Set ending entry index for processing range                              |
+| `--first <n>`                 | Process only the first N entries                                         |
+| `--last <n>`                  | Process only the last N entries                                          |
 
 ## 🐛 Bugs
 

@@ -18,6 +18,10 @@ def run(config: Config) -> None:
 		config.counts,
 		config.split,
 		config.print_mode,
+		config.range_start,
+		config.range_end,
+		config.first,
+		config.last,
 	)
 
 
@@ -29,36 +33,42 @@ def main() -> None:
 		nargs="+",
 		default=["parcoursup.json"],
 		help="Path(s) to the input `.json` file(s). Default: `parcoursup.json`.",
+		metavar="<path>",
 	)
 	arg_parser.add_argument(
 		"-o",
 		"--output",
 		default="parcoursup.sql",
 		help="Path to the output `.sql` file. Default: `parcoursup.sql`.",
+		metavar="<path>",
 	)
 	arg_parser.add_argument(
 		"-d",
 		"--database",
 		default="parcoursup",
 		help="Name of the MySQL database. Default: `parcoursup`.",
+		metavar="<name>",
 	)
 	arg_parser.add_argument(
 		"-t",
 		"--table",
 		default="parcoursup",
 		help="Name of the MySQL table. Default: `parcoursup`.",
+		metavar="<name>",
 	)
 	arg_parser.add_argument(
 		"-r",
 		"--rename",
 		nargs="+",
 		help="Rename keys. Use key:new_key.",
+		metavar="<key:new_key>",
 	)
 	arg_parser.add_argument(
 		"-p",
 		"--primary",
 		nargs="+",
 		help="Primary keys.",
+		metavar="<key>",
 	)
 	arg_parser.add_argument(
 		"-n",
@@ -89,6 +99,35 @@ def main() -> None:
 		"--print",
 		action="store_true",
 		help="Print non-null percentages or counts instead of producing a `.sql` file.",
+	)
+	arg_parser.add_argument(
+		"--range",
+		help="Process entries within specified range (zero-indexed)",
+		metavar="<start,end>",
+	)
+	arg_parser.add_argument(
+		"--range-start",
+		type=int,
+		help="Set starting entry index for processing range",
+		metavar="<n>",
+	)
+	arg_parser.add_argument(
+		"--range-end",
+		type=int,
+		help="Set ending entry index for processing range",
+		metavar="<n>",
+	)
+	arg_parser.add_argument(
+		"--first",
+		type=int,
+		help="Process only the first N entries",
+		metavar="<n>",
+	)
+	arg_parser.add_argument(
+		"--last",
+		type=int,
+		help="Process only the last N entries",
+		metavar="<n>",
 	)
 	args = arg_parser.parse_args()
 	config = Config(args)

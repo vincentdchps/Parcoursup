@@ -3,6 +3,27 @@ import json
 import os
 
 
+def select_entries(
+	entries: list,
+	range_start: int | None,
+	range_end: int | None,
+	first: int | None,
+	last: int | None,
+) -> list:
+	entries_length = len(entries)
+	if range_start is not None and range_end is not None:
+		if range_start <= range_end and range_start < entries_length:
+			return entries[range_start : min(range_end + 1, entries_length)]
+	elif first is not None:
+		if first > 0:
+			return entries[0 : min(first, entries_length)]
+	elif last is not None:
+		if last > 0:
+			start = max(0, entries_length - last)
+			return entries[start:]
+	return entries
+
+
 def rename_keys(obj, renames: dict[str, str]):
 	if isinstance(obj, dict):
 		return {
@@ -117,6 +138,10 @@ def convert_json_to_mysql(
 	counts: bool,
 	split: int,
 	print_mode: bool,
+	range_start: int | None,
+	range_end: int | None,
+	first: int | None,
+	last: int | None,
 ):
 	obj = []
 	for json_file_path in json_file_paths:
@@ -126,6 +151,7 @@ def convert_json_to_mysql(
 				obj.extend(data)
 			else:
 				obj.append(data)
+	obj = select_entries(obj, range_start, range_end, first, last)
 	if renames:
 		obj = rename_keys(obj, renames)
 	flattened_obj = [flatten_dictionary(row) for row in obj]
