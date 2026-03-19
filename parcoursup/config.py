@@ -4,7 +4,12 @@ import argparse
 
 class Config:
 	def __init__(self, args: argparse.Namespace):
-		self.json_file_paths: list[str] = args.input
+		if args.input is not None:
+			self.json_file_paths: list[str] = args.input
+		elif args.fds:
+			self.json_file_paths: list[str] = []
+		else:
+			self.json_file_paths: list[str] = ["parcoursup.json"]
 		self.mysql_file_path: str = args.output
 		self.database_name: str = args.database
 		self.table_name: str = args.table
@@ -27,3 +32,4 @@ class Config:
 			self.range_end = int(end)
 		self.first: int | None = args.first
 		self.last: int | None = args.last
+		self.fds: str | None = args.fds

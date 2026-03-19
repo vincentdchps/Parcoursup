@@ -274,24 +274,25 @@ python -m parcoursup.cli -i fr-esr-parcoursup.json fr-esr-parcoursup_2024.json f
 
 ## 🎨 Command-Line Arguments
 
-| Argument                      | Description                                                              |
-|-------------------------------|--------------------------------------------------------------------------|
-| `-i, --input <path>`          | Path(s) to the input `.json` file(s).                                    |
-| `-o, --output <path>`         | Path to the output `.sql` file.                                          |
-| `-d, --database <name>`       | Name of the MySQL database.                                              |
-| `-t, --table <name>`          | Name of the MySQL table.                                                 |
-| `-r, --rename <key:new_key>`  | Rename keys. Use key:new_key.                                            |
-| `-p, --primary <key>`         | Primary keys.                                                            |
-| `-n, --not-null`              | Set keys with non-null values as NOT NULL.                               |
-| `-P, --percentages`           | Checks for percentages (0 to 100).                                       |
-| `-C, --counts`                | Checks for counts (>= 0).                                                |
-| `-s, --split`                 | Split insert requests into multiple `.sql` files.                        |
-| `--print`                     | Print non-null percentages or counts instead of producing a `.sql` file. |
-| `--range <start,end>`         | Process entries within specified range (zero-indexed)                    |
-| `--range-start <n>`           | Set starting entry index for processing range                            |
-| `--range-end <n>`             | Set ending entry index for processing range                              |
-| `--first <n>`                 | Process only the first N entries                                         |
-| `--last <n>`                  | Process only the last N entries                                          |
+| Argument                      | Description                                                             |
+|-------------------------------|-------------------------------------------------------------------------|
+| `-i, --input <path>`          | Path(s) to the input `.json` file(s)                                    |
+| `-o, --output <path>`         | Path to the output `.sql` file                                          |
+| `-d, --database <name>`       | Name of the MySQL database                                              |
+| `-t, --table <name>`          | Name of the MySQL table                                                 |
+| `-r, --rename <key:new_key>`  | Rename keys. Use key:new_key                                            |
+| `-p, --primary <key>`         | Primary keys                                                            |
+| `-n, --not-null`              | Set keys with non-null values as NOT NULL                               |
+| `-P, --percentages`           | Checks for percentages (0 to 100)                                       |
+| `-C, --counts`                | Checks for counts (>= 0)                                                |
+| `-s, --split`                 | Split insert requests into multiple `.sql` files                        |
+| `--print`                     | Print non-null percentages or counts instead of producing a `.sql` file |
+| `--range <start,end>`         | Process entries within specified range (zero-indexed)                   |
+| `--range-start <n>`           | Set starting entry index for processing range                           |
+| `--range-end <n>`             | Set ending entry index for processing range                             |
+| `--first <n>`                 | Process only the first N entries                                        |
+| `--last <n>`                  | Process only the last N entries                                         |
+| `-f, --fds <path>`            | Path to the file containing functional dependencies to check            |
 
 ## 🐛 Bugs
 
@@ -309,6 +310,11 @@ Creators of:
 - [Parcoursup 2024](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-parcoursup_2024/table/?sort=tri)
 - [Parcoursup 2023](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-parcoursup_2023/table/?sort=tri)
 - [Parcoursup 2022](https://data.enseignementsup-recherche.gouv.fr/explore/dataset/fr-esr-parcoursup_2022/table/?sort=tri)
+
+People:
+
+- Providing a way to check functional dependencies
+	- [SQL statement to prove that A->B in a R(ABCD)](https://stackoverflow.com/questions/4352535/sql-statement-to-prove-that-a-b-in-a-rabcd)
 
 ## 🤝 Contribution
 

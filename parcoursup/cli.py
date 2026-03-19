@@ -22,6 +22,7 @@ def run(config: Config) -> None:
 		config.range_end,
 		config.first,
 		config.last,
+		config.fds,
 	)
 
 
@@ -31,7 +32,7 @@ def main() -> None:
 		"-i",
 		"--input",
 		nargs="+",
-		default=["parcoursup.json"],
+		default=None,
 		help="Path(s) to the input `.json` file(s). Default: `parcoursup.json`.",
 		metavar="<path>",
 	)
@@ -128,6 +129,12 @@ def main() -> None:
 		type=int,
 		help="Process only the last N entries",
 		metavar="<n>",
+	)
+	arg_parser.add_argument(
+		"-f",
+		"--fds",
+		help="Path to the file containing functional dependencies to check.",
+		metavar="<path>",
 	)
 	args = arg_parser.parse_args()
 	config = Config(args)

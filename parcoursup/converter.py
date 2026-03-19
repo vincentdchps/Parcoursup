@@ -126,6 +126,65 @@ def create_insert_statement(table_name: str, keys: list, row: dict) -> str:
 	return f"INSERT INTO {table_name} VALUES ({values_string});\n"
 
 
+def check_functional_dependencies(file, fds_path: str, table_name: str) -> None:
+	with open(fds_path, "r", encoding="utf-8") as fds_file:
+		for line in fds_file:
+			line = line.strip().replace("`", "").replace("$", "")
+			if not line:
+				continue
+			delimiter = None
+			if "→" in line:
+				delimiter = "→"
+			elif "->" in line:
+				delimiter = "->"
+			elif "\\to" in line:
+				delimiter = "\\to"
+			elif "\\rightarrow" in line:
+				delimiter = "\\rightarrow"
+			if not delimiter:
+				continue
+			left, right = line.split(delimiter, 1)
+			left_columns = [
+				column.strip() for column in left.split(",") if column.strip()
+			]
+			right_columns = [
+				column.strip() for column in right.split(",") if column.strip()
+			]
+			if not left_columns or not right_columns:
+				continue
+			left_string = ", ".join(left_columns)
+			right_string = ", ".join(right_columns)
+			having_clauses = " OR ".join(
+				f"COUNT(DISTINCT {column}) > 1" for column in right_columns
+			)
+			file.write("SELECT\n")
+			file.write(f"\t'{left_string} → {right_string}' AS FD,\n")
+			file.write("\tCASE\n")
+			file.write("\t\tWHEN EXISTS (\n")
+			file.write("\t\t\tSELECT 1\n")
+			file.write(f"\t\t\tFROM {table_name}\n")
+			file.write(f"\t\t\tGROUP BY {left_string}\n")
+			file.write(f"\t\t\tHAVING {having_clauses}\n")
+			file.write("\t\t) THEN 'Invalid'\n")
+			file.write("\t\tELSE 'Valid'\n")
+			file.write("\tEND AS Status;\n\n")
+			select_clauses = list(left_columns)
+			for column in right_columns:
+				select_clauses.append(f"COUNT(DISTINCT {column}) AS {column}_count")
+			for column in right_columns:
+				select_clauses.append(
+					f"GROUP_CONCAT(DISTINCT {column}) AS {column}_values"
+				)
+			having_clauses = [f"{column}_count > 1" for column in right_columns]
+			select_sql = ",\n\t".join(select_clauses)
+			having_sql = " OR ".join(having_clauses)
+			file.write("SELECT\n")
+			file.write(f"\t{select_sql}\n")
+			file.write(f"FROM {table_name}\n")
+			file.write(f"GROUP BY {left_string}\n")
+			file.write(f"HAVING {having_sql};\n\n")
+
+
 def convert_json_to_mysql(
 	json_file_paths: list[str],
 	mysql_file_path: str,
@@ -142,7 +201,14 @@ def convert_json_to_mysql(
 	range_end: int | None,
 	first: int | None,
 	last: int | None,
+	fds: str | None,
 ):
+	if not json_file_paths:
+		if fds:
+			with open(mysql_file_path, "w", encoding="utf-8") as file:
+				file.write(f"USE {database_name};\n")
+				check_functional_dependencies(file, fds, table_name)
+		return
 	obj = []
 	for json_file_path in json_file_paths:
 		with open(json_file_path, "r", encoding="utf-8") as file:
@@ -229,6 +295,8 @@ def convert_json_to_mysql(
 		insert_statement = create_insert_statement(table_name, valid_keys, row)
 		file.write(insert_statement)
 		insert_count += 1
+	if fds:
+		check_functional_dependencies(file, fds, table_name)
 	file.write(f"OPTIMIZE TABLE {table_name};\n")
 	file.write("COMMIT;")
 	file.close()
