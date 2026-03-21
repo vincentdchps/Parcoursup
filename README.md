@@ -151,7 +151,7 @@ _Note : Comme les bases de données de [data.gouv.fr](https://www.data.gouv.fr) 
 
 `acc_tot`, `acc_term` $\to$ `pct_etab_orig`
 
-_Note : Les corrections ont été basées sur les recalculs mathématiques des effectifs totales et des pourcentages._
+_Note : Les corrections ont été basées sur les recalculs mathématiques des effectifs totaux et des pourcentages._
 
 #### 🔤 Peut être valide après correction des erreurs de grammaire
 
@@ -159,25 +159,27 @@ _Note : Les corrections ont été basées sur les recalculs mathématiques des e
 
 _Note : Les corrections étaient basées sur les articles [Département français](https://fr.wikipedia.org/wiki/Département_français) et [Région française](https://fr.wikipedia.org/wiki/Région_française)._
 
-#### 🔄 Peut être valide mais nécessite les corrections
+#### 🔄 Peut être valide mais nécessite des corrections
 
 `cod_aff_form` $\to$ `cod_uai`, `lib_comp_voe_ins`, `detail_forma`, `geolocalisation_des_formations_lon`, `geolocalisation_des_formations_lat`, `detail_forma2`, `list_com`, `tri`, `lien_form_psup`, `composante_id_paysage`
 
-_Note : ~25,4 % des entrées (14 176 lignes) présentent des erreurs car, certaines données ont changé d'année en année. Donc, pour la migration, les données les plus récentes seront considérées comme correctes, car la vérification manuelle des données prend énormément de temps._
+_Note : ~25,4 % des entrées (14 176 lignes) présentent des erreurs, car certaines données ont changé d'année en année. Donc, pour la migration, les données les plus récentes seront considérées comme correctes, car la vérification manuelle des données prend énormément de temps._
 
 `cod_uai` $\to$ `contrat_etab`, `g_ea_lib_vx`, `dep`, `ville_etab`, `etablissement_id_paysage`
 
-_Note : ~0,8 % des entrées (442 lignes) présentent des erreurs car, pour le même code UAI (Unité Administrative Immatriculée), il existe plusieurs formations même si, par définition, il s'agit d'un identifiant unique strictement codifié. Donc, pour la migration, les données les plus récentes et choisies à la majorité seront considérées comme correctes, car la vérification manuelle des données prend énormément de temps._
+_Note : ~0,8 % des entrées (442 lignes) présentent des erreurs, car pour le même code UAI (Unité Administrative Immatriculée), il existe plusieurs formations même si, par définition, il s'agit d'un identifiant unique strictement codifié. Donc, pour la migration, les données les plus récentes seront considérées comme correctes, car la vérification manuelle des données prend énormément de temps._
 
 `geolocalisation_des_formations_lon`, `geolocalisation_des_formations_lat` $\to$ `dep`, `dep_lib`, `region_etab_aff`, `academies`, `ville_etab`
 
-_Note : ~3,8 % des entrées (2 134 lignes) présentent des erreurs avant et ~0,4 % (210 lignes) après les corrections mathématiques. Donc, les corrections restantes ont été apportées uniquement aux entrées de la session 2025, car la vérification des données par carte prend énormément de temps._
+_Note : ~3,8 % des entrées (2 134 lignes) présentent des erreurs avant et ~0,4 % (210 lignes) après les corrections mathématiques. Donc, les corrections restantes ont été apportées uniquement aux entrées de la session 2025 et le reste va être remplacé par les données les plus récentes, car la vérification des données par carte prend énormément de temps._
 
 `lib_comp_voe_ins` $\to$ `select_form`, `fili`, `form_lib_voe_acc`, `fil_lib_voe_acc`
 
-_Note : ~1,8 % des entrées (996 lignes) présentent des erreurs, telles que l'existence simultanée de la même formation non sélective et sélective, une formation correcte remplacée par "Autre formation", des troncations mal faites, etc. Donc, pour la migration, les données les plus récentes et choisies à la majorité seront considérées comme correctes, car la vérification manuelle des données prend énormément de temps._
+_Note : ~1,8 % des entrées (996 lignes) présentent des erreurs, telles que l'existence simultanée de la même formation non sélective et sélective, une formation correcte remplacée par "Autre formation", des troncations mal faites, etc. Donc, pour la migration, les données les plus récentes seront considérées comme correctes, car la vérification manuelle des données prend énormément de temps._
 
 ~~`nb_cla_pp_internat`, `nb_cla_pp_pasinternat` $\to$ `nb_cla_pp`~~
+
+## ⚙️ Features
 
 ## ⚙️ Features
 
