@@ -75,9 +75,13 @@ _Note : Comme les bases de données de [data.gouv.fr](https://www.data.gouv.fr) 
 - **Anomalie de suppression :**
 	Si l'on supprime les formations "CPGE - Lettres" et "BTS - Services - Support à l'action managériale" du *Lycée Saint Exupéry* (UAI `0782539L`), l'existence même de ce lycée, ainsi que sa localisation et son code UAI, sont définitivement effacés de la base de données.
 
-## 🔗 Functional Dependencies
+## 💀 Normalisation
 
-### ✅ Valid
+### 🔗 Dépendances fonctionnelles (DF)
+
+#### ✅ Valide
+
+`academies` $\to$ `region_etab_aff`
 
 `acc_bg`, `acc_bt`, `acc_bp` $\to$ `acc_neobac`
 
@@ -105,9 +109,11 @@ _Note : Comme les bases de données de [data.gouv.fr](https://www.data.gouv.fr) 
 
 `session`, `cod_aff_form`, `lib_grp3` $\to$ `ran_grp3`
 
-### #️⃣ Maybe valid after correction of math errors
+#### #️⃣ Peut être valide après correction des erreurs de calcul
 
 `acc_bg`, `acc_bt`, `acc_bp`, `acc_at` $\to$ `acc_tot`
+
+~~`acc_pp`, `acc_pc` $\to$ `acc_tot`~~
 
 `acc_sansmention`, `acc_ab`, `acc_b`, `acc_tb`, `acc_tbf` $\to$ `acc_neobac`
 
@@ -143,11 +149,11 @@ _Note : Comme les bases de données de [data.gouv.fr](https://www.data.gouv.fr) 
 
 `acc_tot`, `acc_term` $\to$ `pct_etab_orig`
 
-### 🔤 Maybe valid after correction of grammar errors
+#### 🔤 Peut être valide après correction des erreurs de grammaire
 
 `dep` $\to$ `dep_lib`, `region_etab_aff`, `academies`
 
-### 🔄 Maybe valid but requires reevaluation
+#### 🔄 Peut être valide mais nécessite une réévaluation
 
 `cod_aff_form` $\to$ `cod_uai`, `lib_comp_voe_ins`, `detail_forma`, `geolocalisation_des_formations_lon`, `geolocalisation_des_formations_lat`, `detail_forma2`, `list_com`, `tri`, `lien_form_psup`, `composante_id_paysage`
 
@@ -157,7 +163,7 @@ _Note : Comme les bases de données de [data.gouv.fr](https://www.data.gouv.fr) 
 
 `lib_comp_voe_ins` $\to$ `lib_for_voe_ins`, `select_form`, `fili`, `form_lib_voe_acc`, `fil_lib_voe_acc`
 
-`nb_cla_pp_internat`, `nb_cla_pp_pasinternat` $\to$ `nb_cla_pp`
+~~`nb_cla_pp_internat`, `nb_cla_pp_pasinternat` $\to$ `nb_cla_pp`~~
 
 ## ⚙️ Features
 
