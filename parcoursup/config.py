@@ -33,3 +33,4 @@ class Config:
 		self.first: int | None = args.first
 		self.last: int | None = args.last
 		self.fds: str | None = args.fds
+		self.where: str | None = args.where

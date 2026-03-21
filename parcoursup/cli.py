@@ -23,6 +23,7 @@ def run(config: Config) -> None:
 		config.first,
 		config.last,
 		config.fds,
+		config.where,
 	)
 
 
@@ -68,7 +69,7 @@ def main() -> None:
 		"-p",
 		"--primary",
 		nargs="+",
-		help="Primary keys.",
+		help="Primary key(s).",
 		metavar="<key>",
 	)
 	arg_parser.add_argument(
@@ -81,13 +82,13 @@ def main() -> None:
 		"-P",
 		"--percentages",
 		action="store_true",
-		help="Checks for percentages (0 to 100).",
+		help="Check for percentages (0 to 100).",
 	)
 	arg_parser.add_argument(
 		"-C",
 		"--counts",
 		action="store_true",
-		help="Checks for counts (>= 0).",
+		help="Check for counts (>= 0).",
 	)
 	arg_parser.add_argument(
 		"-s",
@@ -103,19 +104,19 @@ def main() -> None:
 	)
 	arg_parser.add_argument(
 		"--range",
-		help="Process entries within specified range (zero-indexed)",
+		help="Process entries within the specified range (zero-indexed)",
 		metavar="<start,end>",
 	)
 	arg_parser.add_argument(
 		"--range-start",
 		type=int,
-		help="Set starting entry index for processing range",
+		help="Set the starting entry index for the processing range",
 		metavar="<n>",
 	)
 	arg_parser.add_argument(
 		"--range-end",
 		type=int,
-		help="Set ending entry index for processing range",
+		help="Set the ending entry index for the processing range",
 		metavar="<n>",
 	)
 	arg_parser.add_argument(
@@ -135,6 +136,12 @@ def main() -> None:
 		"--fds",
 		help="Path to the file containing functional dependencies to check.",
 		metavar="<path>",
+	)
+	arg_parser.add_argument(
+		"-w",
+		"--where",
+		help="Append a custom WHERE clause for functional dependency checks.",
+		metavar="<clause>",
 	)
 	args = arg_parser.parse_args()
 	config = Config(args)

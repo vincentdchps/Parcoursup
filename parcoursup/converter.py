@@ -126,7 +126,9 @@ def create_insert_statement(table_name: str, keys: list, row: dict) -> str:
 	return f"INSERT INTO {table_name} VALUES ({values_string});\n"
 
 
-def check_functional_dependencies(file, fds_path: str, table_name: str) -> None:
+def check_functional_dependencies(
+	file, fds_path: str, table_name: str, where: str | None
+) -> None:
 	with open(fds_path, "r", encoding="utf-8") as fds_file:
 		for line in fds_file:
 			line = line.strip().replace("`", "").replace("$", "")
@@ -157,6 +159,8 @@ def check_functional_dependencies(file, fds_path: str, table_name: str) -> None:
 			where_clauses = " AND ".join(
 				f"{column} IS NOT NULL" for column in left_columns
 			)
+			if where:
+				where_clauses += f" AND ({where})"
 			having_clauses = " OR ".join(
 				f"COUNT(DISTINCT {column}) > 1" for column in right_columns
 			)
@@ -207,11 +211,12 @@ def convert_json_to_mysql(
 	first: int | None,
 	last: int | None,
 	fds: str | None,
+	where: str | None,
 ):
 	if not json_file_paths:
 		if fds:
 			with open(mysql_file_path, "w", encoding="utf-8") as file:
-				check_functional_dependencies(file, fds, table_name)
+				check_functional_dependencies(file, fds, table_name, where)
 		return
 	obj = []
 	for json_file_path in json_file_paths:
@@ -300,7 +305,7 @@ def convert_json_to_mysql(
 		file.write(insert_statement)
 		insert_count += 1
 	if fds:
-		check_functional_dependencies(file, fds, table_name)
+		check_functional_dependencies(file, fds, table_name, where)
 	file.write(f"OPTIMIZE TABLE {table_name};\n")
 	file.write("COMMIT;")
 	file.close()

@@ -181,8 +181,6 @@ _Note : ~1,8 % des entrées (996 lignes) présentent des erreurs, telles que l'e
 
 ## ⚙️ Features
 
-## ⚙️ Features
-
 | Key                              | Description                                                                                                                                      |
 |----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
 | `session`                        | Session                                                                                                                                          |
@@ -327,6 +325,11 @@ Create functional dependency SQL checks from a README file.
 python -m parcoursup.cli -f README.md
 ```
 
+Create functional dependency SQL checks from a README file with a session filter.
+```bash
+python -m parcoursup.cli -f README.md -w session=2025
+```
+
 ## 🎨 Command-Line Arguments
 
 | Argument                      | Description                                                             |
@@ -336,18 +339,19 @@ python -m parcoursup.cli -f README.md
 | `-d, --database <name>`       | Name of the MySQL database                                              |
 | `-t, --table <name>`          | Name of the MySQL table                                                 |
 | `-r, --rename <key:new_key>`  | Rename keys. Use key:new_key                                            |
-| `-p, --primary <key>`         | Primary keys                                                            |
+| `-p, --primary <key>`         | Primary key(s)                                                          |
 | `-n, --not-null`              | Set keys with non-null values as NOT NULL                               |
-| `-P, --percentages`           | Checks for percentages (0 to 100)                                       |
-| `-C, --counts`                | Checks for counts (>= 0)                                                |
+| `-P, --percentages`           | Check for percentages (0 to 100)                                        |
+| `-C, --counts`                | Check for counts (>= 0)                                                 |
 | `-s, --split`                 | Split insert requests into multiple `.sql` files                        |
 | `--print`                     | Print non-null percentages or counts instead of producing a `.sql` file |
-| `--range <start,end>`         | Process entries within specified range (zero-indexed)                   |
-| `--range-start <n>`           | Set starting entry index for processing range                           |
-| `--range-end <n>`             | Set ending entry index for processing range                             |
+| `--range <start,end>`         | Process entries within the specified range (zero-indexed)               |
+| `--range-start <n>`           | Set the starting entry index for the processing range                   |
+| `--range-end <n>`             | Set the ending entry index for the processing range                     |
 | `--first <n>`                 | Process only the first N entries                                        |
 | `--last <n>`                  | Process only the last N entries                                         |
 | `-f, --fds <path>`            | Path to the file containing functional dependencies to check            |
+| `-w, --where <clause>`        | Append a custom WHERE clause for functional dependency checks           |
 
 ## 🐛 Bugs
 
