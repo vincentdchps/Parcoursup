@@ -113,7 +113,7 @@ JOIN formation f ON e.cod_uai = f.cod_uai
 JOIN statistiques s ON f.cod_aff_form = s.cod_aff_form
 WHERE s.acc_tot > 1000;
 
---Requête SQL d’insertion de tuples
+--Requête SQL d'insertion de tuples
 
 --inserer une nouvelle ligne fictive dans la table parcoursup :
 --bdd 1 :
@@ -327,7 +327,7 @@ DELIMITER ;
 
 --TRIGGER 2 - Trigger de type FOR EACH ROW LEVEL
 
---À chaque insertion d’une nouvelle formation dans la table parcoursup, la colonne select_form est automatiquement renseignée : si le libellé de la formation commence par « Licence », alors select_form est mis à « formation non sélective », sinon il est mis à « formation sélective ».
+--À chaque insertion d'une nouvelle formation dans la table parcoursup, la colonne select_form est automatiquement renseignée : si le libellé de la formation commence par « Licence », alors select_form est mis à « formation non sélective », sinon il est mis à « formation sélective ».
 --Cela assure la cohérence des données dans la colonne select_form en fonction du libellé de la formation, et évite les erreurs d'insertion où select_form pourrait être renseigné de manière incorrecte.
 --On applique avant la nouvelle insertion que pour chaque ligne on applique a la colonne select_form la valeur 'formation non sélective' si le libellé de la formation commence par 'Licence' et sinon on lui napplique la valeur'formation sélective'.
 --bdd 1:
